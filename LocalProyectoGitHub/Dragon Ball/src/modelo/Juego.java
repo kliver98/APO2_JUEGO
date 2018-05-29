@@ -48,6 +48,10 @@ public class Juego {
 	 * Atributo que representa un fondo auxiliar del videojuego.<br>
 	 */
 	private Fondo auxiliar;
+	/**
+	 * 
+	 */
+	private ArrayList<Item> items;
 	
 	/**
 	 * 
@@ -58,11 +62,7 @@ public class Juego {
 	 * Constructor de la clase juego.<br>
 	 */
 	public Juego() {
-		enemigos = new ArrayList<Personaje>();
-		crearFondo();
-		crearGoku();
-		creaEnemigosRandomBasicos();
-		setGokuVivo(true);
+		crearNuevaPartida();
 	}
 	
 	/**
@@ -70,10 +70,21 @@ public class Juego {
 	 * @param nick - nombre del jugador<br>
 	 */
 	public void agregarJugador(String nick) {
-		agregarJugador(new Jugador(nick), primero);
-		enemigos = new ArrayList<Personaje>();
+		Jugador nuevo = new Jugador(nick);
+		actual = nuevo;
+		
+		agregarJugador(nuevo, primero);
+//		enemigos = new ArrayList<Personaje>();
 	}
 	
+	public Jugador getActual() {
+		return actual;
+	}
+
+	public void setActual(Jugador actual) {
+		this.actual = actual;
+	}
+
 	/**
 	 * Metodo recursivo que buscar el ultimo jugador null y agrega un nuevo jugador en la ultima posicion<br>
 	 * @param jugador  - jugador nuevo para agregar<br>
@@ -176,6 +187,22 @@ public class Juego {
 				crearEnemigosRobots();
 		}
 	}
+	
+	/**
+	 * Agrega un item al azar
+	 */
+	public void agregarItems() {
+		int oportunidad = (int) (Math.random() * 500 + 1);
+		
+		if (oportunidad == 23) {
+			oportunidad = (int) (Math.random() * 2 + 1);
+			
+			if (oportunidad == 1) {
+			}
+			else if (oportunidad == 2) {
+			}
+		}
+	}
 
 	/**
 	 * Metodo que devuelve el total de Jugadores de la lista de esta<br>
@@ -252,6 +279,9 @@ public class Juego {
 			if(poderPosY+poderAlto >= enemigoPosY && poderPosY <= enemigoPosY+enemigoAlto) {
 				String imagen = Goku.PODER_GOKU_2;
 				principal.getPoder().setPoder(imagen);
+				
+				int puntos = actual.getPuntaje()+PUNTOS_ENEMIGOS_BASICOS;
+				actual.setPuntaje(puntos);
 				
 				int danioPoder = principal.getPoder().getDanio();
 				int vida = evaluado.getVida()- danioPoder;
@@ -405,7 +435,32 @@ public class Juego {
 	public void terminarJuego() {
 		
 	}
+
+	/**
+	 * 
+	 */
+	public void crearNuevaPartida() {
+		terminarPartida();
+		
+		enemigos = new ArrayList<Personaje>();
+		crearFondo();
+		crearGoku();
+		creaEnemigosRandomBasicos();
+		setGokuVivo(true);
+	}
 	
+	/**
+	 * 
+	 */
+	public void terminarPartida() {
+		enemigos = null;
+		principal = null;
+		fondo = null;
+		auxiliar = null;
+		
+		setGokuVivo(false);
+	}
+
 	/**
 	 * 
 	 * @return

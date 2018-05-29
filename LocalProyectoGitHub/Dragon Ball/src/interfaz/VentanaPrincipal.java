@@ -46,12 +46,10 @@ public class VentanaPrincipal extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		setTitle(NOMBRE_APP);
-		add(panelJuego, BorderLayout.CENTER);
-		add(panelHabilidades, BorderLayout.SOUTH);
-		pack();
-		startHiloFondo();
-		starHilosEnemigos();
-		startHiloPoderEnemigo();
+
+		startVerificarJuego();
+		
+		nuevoJuego();
 	}
 
 	/**
@@ -71,6 +69,23 @@ public class VentanaPrincipal extends JFrame {
 		return juego;
 	}
 	
+	/**
+	 * 
+	 */
+	public void iniciarHilos() {
+		startHiloFondo();
+		starHilosEnemigos();
+		startHiloPoderEnemigo();
+	}
+	
+	/**
+	 * Método que inicia el hilo del eje Y del personaje Son Goku<br>
+	 */
+	public void startVerificarJuego() {
+		HiloVerificarJuego hilo = new HiloVerificarJuego(this, getJuego());
+		hilo.start();
+	}
+
 	/**
 	 * Método que inicia el hilo del eje Y del personaje Son Goku<br>
 	 */
@@ -146,8 +161,8 @@ public class VentanaPrincipal extends JFrame {
 	 * Método que se encarga de actualizar o refrescar el videojuego.<br>
 	 */
 	public void refrescarJuego() {
-		panelJuego.repaint();
 		this.repaint();
+		panelJuego.repaint();
 	}
 	
 	/**
@@ -287,12 +302,43 @@ public class VentanaPrincipal extends JFrame {
 		return PanelJuego.WIDTH;
 	}
 	
-	/**
-	 * 
-	 */
-	public void terminarJuego() {
-		if (juego.isGokuVivo()) {
+	public void nuevoJuego() {
+		int seleccion = JOptionPane.showOptionDialog( null,"Seleccione una opcion",
+				"Opciones",JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,null,// null para icono por defecto.
+				new String[] { "Nuevo Jugador", "Jugador existente", "Ver puntajes"},"opcion 1");
+		
+		 if (seleccion != -1){
+			 if (seleccion == 0) {
+				String usuario = JOptionPane.showInputDialog(null, "Ingrese Usuario");
+				juego.agregarJugador(usuario);
+			 }
+			 if (seleccion==1) {
+				 String usuario = JOptionPane.showInputDialog(null, "Ingrese Usuario");
+			}
+		 }
+		 else {
+			System.exit(0);
 		}
+		 
+		 add(panelJuego, BorderLayout.CENTER);
+		 add(panelHabilidades, BorderLayout.SOUTH);
+		 setVisible(true);
+		 pack();
+		 setLocationRelativeTo(null);
+		 
+		 iniciarHilos();
 	}
-	
+
+	public Jugador jugadorActual() {
+		return juego.getActual();
+	}
+
+	public PanelHabilidades getPanelHabilidades() {
+		return panelHabilidades;
+	}
+
+	public void setPanelHabilidades(PanelHabilidades panelHabilidades) {
+		this.panelHabilidades = panelHabilidades;
+	}
 }

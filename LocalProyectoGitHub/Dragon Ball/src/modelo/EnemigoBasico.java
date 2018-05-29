@@ -14,7 +14,7 @@ public class EnemigoBasico extends Personaje {
 	/**
 	 * Constante que representa el danio que se hace goku si toca un enemigo.
 	 */
-	public static final int DANIO_INSTANTANEO = 30;
+	public static final int DANIO_INSTANTANEO = 1000;
 	/**
 	 * Constante que representa los pixeles que movera en el eje y.S
 	 */
@@ -134,7 +134,9 @@ public class EnemigoBasico extends Personaje {
 		
 		contadorPoderes++;
 		
-		if (contadorPoderes==GENERAR_NUEVOS_PODERES) {
+		//Tiempo de generar nuevos poderes
+		int ramdon = (int) Math.floor(Math.random()*(60-30+1)+30); //M = 30, N = 60, random entre 30 y 60
+		if (contadorPoderes>=ramdon) {
 			crearPoderes();
 			contadorPoderes = 0;
 			

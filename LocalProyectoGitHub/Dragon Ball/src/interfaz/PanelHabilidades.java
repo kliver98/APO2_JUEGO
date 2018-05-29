@@ -1,6 +1,7 @@
 package interfaz;
 
 import javax.swing.*;
+
 import modelo.Juego;
 import java.awt.*;
 
@@ -42,6 +43,7 @@ public class PanelHabilidades extends JPanel {
 		ImageIcon fondo = new ImageIcon("datos/auxiliares/ColorTierra.jpg");
 		g.drawImage(fondo.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
 		paintVidaGoku(g);
+		pintarDatosJugador(g);
 	}
 	
 	/**
@@ -61,5 +63,24 @@ public class PanelHabilidades extends JPanel {
 		g.setColor(Color.BLACK);
 		g.drawRect(150, 100, Juego.BARRA_VIDA, 25);
 	}
+	
+	
+	public void pintarDatosJugador(Graphics g) {
+		g.setFont(new Font("Comic Sans MS", Font.ITALIC, 20));
+		g.setColor(Color.blue);
+		g.drawString("Puntos:", 850, 115);
+
+		g.setColor(Color.yellow);
+		String puntos = vent.jugadorActual().getPuntaje()+"";
+		g.drawString(puntos, 920, 115);
+
+		g.setColor(Color.blue);
+		g.drawString("Nick:", 850, 85);
+		
+		g.setColor(Color.yellow);
+		String nombre = vent.jugadorActual().getNickName();
+		g.drawString(nombre, 920, 85);
+	}
+	
 	
 }

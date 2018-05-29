@@ -39,7 +39,7 @@ public class HiloPoderesEnemigosBasicos extends Thread {
 	 * Metodo que ejecuta el hilo<br>
 	 */
 	public void run() {
-		while(true) {
+		while(juego.isGokuVivo()) {
 			for (int i = 0; i < juego.getEnemigos().size(); i++) {
 				EnemigoBasico enemigo = (EnemigoBasico) juego.getEnemigos().get(i);
 				
@@ -51,19 +51,21 @@ public class HiloPoderesEnemigosBasicos extends Thread {
 						
 						if(poder.getPosX()<=0) 
 							enemigo.getPoderes().remove(j);
+						
+						juego.verificarDanioEnemigos(enemigo, poder, j);
 					}
 //					else {
 //						enemigo.getPoderes().remove(j);
 //					}
-					juego.verificarDanioEnemigos(enemigo, poder, j);
 				}
 			}
 			
 			try {
 				sleep(5);
+				if (!juego.isGokuVivo()) 
+					this.interrupt();
 			} catch (InterruptedException e) {
 			}
-			
 		}
 	}
 }

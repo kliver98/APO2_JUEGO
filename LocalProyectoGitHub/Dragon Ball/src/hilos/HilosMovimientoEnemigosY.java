@@ -41,7 +41,7 @@ public class HilosMovimientoEnemigosY extends Thread{
 	 * Metodo que inicia el hilo<br>
 	 */
 	public void run() {
-		while(true) {
+		while(juego.isGokuVivo()) {
 			for (int i = 0; i < juego.getEnemigos().size(); i++) {
 				EnemigoBasico enemigo = (EnemigoBasico) juego.getEnemigos().get(i);
 				velocidad = enemigo.getVelocidad();
@@ -50,9 +50,10 @@ public class HilosMovimientoEnemigosY extends Thread{
 				
 				juego.verificarDanioInstantaneo(enemigo, i);
 			}
-			
 			try {
 				sleep(20);
+				if (!juego.isGokuVivo()) 
+					this.interrupt();
 			} catch (InterruptedException e) {
 			}
 		}

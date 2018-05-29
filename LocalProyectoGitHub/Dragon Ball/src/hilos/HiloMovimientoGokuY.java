@@ -40,7 +40,7 @@ public class HiloMovimientoGokuY extends Thread{
 	 * Método que ejecuta el hilo.<br>
 	 */
 	public void run() {
-		while(juego.getPrincipal().isMoviendo()) {
+		while(juego.getPrincipal().isMoviendo()&&juego.isGokuVivo()) {
 			ventana.modificarPosYGoku(valorMovimiento);
 			try {
 				sleep(15);
@@ -50,8 +50,10 @@ public class HiloMovimientoGokuY extends Thread{
 				else {
 					ventana.refrescarJuego();
 				}
+
+				if (!juego.isGokuVivo()) 
+					this.interrupt();
 			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
 		}
 	}

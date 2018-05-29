@@ -46,10 +46,14 @@ public class PanelJuego extends JPanel implements KeyListener {
 		ImageIcon imageFondoAuxiliar = new ImageIcon(ventana.getFondoAuxiliar().getImagen());
 		g.drawImage(imageFondo.getImage(), ventana.getFondo().getX(), 0, this.getWidth(), this.getHeight(), null);
 		g.drawImage(imageFondoAuxiliar.getImage(), ventana.getFondoAuxiliar().getX(), 0, this.getWidth(), this.getHeight(), null);
+		
 		pintarGoku(g);
 		pintarPoderGoku(g);
 		pintarEnemigos(g);
 		pintarPoderEnemigos(g);
+		
+		if (!ventana.getJuego().isGokuVivo()) 
+			pintarGameOver(g);
 	}
 	
 	/**
@@ -126,6 +130,13 @@ public class PanelJuego extends JPanel implements KeyListener {
 		}
 	}
 	
+	public void pintarGameOver(Graphics g) {
+		String aux = "./datos/auxiliares/Game_Over.jpg";
+		ImageIcon imageIcon = new ImageIcon(aux);
+		
+		g.drawImage(imageIcon.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
+	}
+//
 	/**
 	 * Metdo sobreescrito que captura cuando se presiono una tecla<br>
 	 * @param e con el evento generado<br>

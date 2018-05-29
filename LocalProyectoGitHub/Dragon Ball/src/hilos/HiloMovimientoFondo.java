@@ -33,15 +33,18 @@ public class HiloMovimientoFondo extends Thread {
 	 * Método que ejecuta el hilo.<br>
 	 */
 	public void run() {
-		while(true) {
+		while(juego.isGokuVivo()) {
+			ventana.refrescarJuego();
+
 			juego.getFondo().moverFondo();
 			juego.getAuxiliar().moverFondo();
 			try {
 				sleep(10);
+				if (!juego.isGokuVivo()) 
+					this.interrupt();
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
-			ventana.refrescarJuego();
 		}
 	}
 }

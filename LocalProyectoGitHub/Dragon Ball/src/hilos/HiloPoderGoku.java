@@ -41,7 +41,8 @@ public class HiloPoderGoku extends Thread {
 	 * Metodo que inicia el hilo<br>
 	 */
 	public void run() {
-		while(ventana.poderGoku().isActivado()) {
+		while(ventana.poderGoku().isActivado()&&juego.isGokuVivo()) {
+			
 			ventana.moverPoderGoku(movimiento);
 			juego.getPrincipal().setAumentarPoder(movimiento);
 			ventana.aumentarPoderGoku();
@@ -57,6 +58,9 @@ public class HiloPoderGoku extends Thread {
 					this.interrupt();
 				else 
 					ventana.refrescarJuego();
+
+				if (!juego.isGokuVivo()) 
+					this.interrupt();
 			} catch (InterruptedException e) {
 			}
 		}
