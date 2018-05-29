@@ -1,6 +1,7 @@
 package modelo;
 
-import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
 
 /**
  * Clase que representa el juego.
@@ -52,12 +53,10 @@ public class Juego {
 	 * 
 	 */
 	private ArrayList<Item> items;
-	
 	/**
 	 * 
 	 */
 	private boolean gokuVivo;
-	
 	/**
 	 * Constructor de la clase juego.<br>
 	 */
@@ -353,7 +352,6 @@ public class Juego {
 		int vGoku = principal.getVida();
 		
 		int x = (bVida*vGoku)/vGokuCompleta;
-		
 		return x;
 	}
 	
@@ -431,10 +429,6 @@ public class Juego {
 		}
 		
 	}
-	
-	public void terminarJuego() {
-		
-	}
 
 	/**
 	 * 
@@ -475,6 +469,28 @@ public class Juego {
 	 */
 	public void setGokuVivo(boolean gokuVivo) {
 		this.gokuVivo = gokuVivo;
+	}
+	
+	//*********************************
+	//Archivos planos y serializables
+	//*********************************
+	
+	public void serializarJugadores() {
+		File file = new File("./archivos/usuario.bin");
+		FileOutputStream fileO;
+		try {
+			fileO = new FileOutputStream(file);
+			ObjectOutputStream ois = new ObjectOutputStream(fileO);
+		} 
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
 	
 }

@@ -1,12 +1,18 @@
 package modelo;
 
+import java.io.Serializable;
+
 /**
  * Clase que representa el jugador.
  * @author Christian Alberto Tamayo Robayo, Joe Stephen Hernandes Meneses, Kliver Daniel Giron.
  *
  */
-public class Jugador {
+public class Jugador implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Atributo que representa el nickname o apodo del jugador.
 	 */

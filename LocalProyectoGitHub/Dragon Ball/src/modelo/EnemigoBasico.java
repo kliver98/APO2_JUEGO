@@ -14,7 +14,7 @@ public class EnemigoBasico extends Personaje {
 	/**
 	 * Constante que representa el danio que se hace goku si toca un enemigo.
 	 */
-	public static final int DANIO_INSTANTANEO = 1000;
+	public static final int DANIO_INSTANTANEO = 50;
 	/**
 	 * Constante que representa los pixeles que movera en el eje y.S
 	 */

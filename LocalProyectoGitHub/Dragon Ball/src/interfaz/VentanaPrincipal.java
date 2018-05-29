@@ -303,18 +303,23 @@ public class VentanaPrincipal extends JFrame {
 	}
 	
 	public void nuevoJuego() {
-		int seleccion = JOptionPane.showOptionDialog( null,"Seleccione una opcion",
-				"Opciones",JOptionPane.YES_NO_CANCEL_OPTION,
+		int seleccion = JOptionPane.showOptionDialog( null,"Seleccione una opción",
+				"Menu del Juego",JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.QUESTION_MESSAGE,null,// null para icono por defecto.
 				new String[] { "Nuevo Jugador", "Jugador existente", "Ver puntajes"},"opcion 1");
-		
-		 if (seleccion != -1){
+	
+		if (seleccion != -JOptionPane.CANCEL_OPTION){
 			 if (seleccion == 0) {
 				String usuario = JOptionPane.showInputDialog(null, "Ingrese Usuario");
-				juego.agregarJugador(usuario);
+				if ( usuario!=null && !usuario.isEmpty() )
+					juego.agregarJugador(usuario);
+				else
+					nuevoJuego();
 			 }
 			 if (seleccion==1) {
 				 String usuario = JOptionPane.showInputDialog(null, "Ingrese Usuario");
+				 if ( usuario==null || usuario.isEmpty() )
+					 nuevoJuego();
 			}
 		 }
 		 else {

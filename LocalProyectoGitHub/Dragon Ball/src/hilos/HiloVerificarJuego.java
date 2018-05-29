@@ -30,6 +30,7 @@ public class HiloVerificarJuego extends Thread{
 //				ventana.getPanelHabilidades().repaint();
 //				ventana.repaint();
 				if (!juego.isGokuVivo()) {
+					
 					JOptionPane.showConfirmDialog(ventana, "Juego Terminado", "Game Over", JOptionPane.DEFAULT_OPTION);
 					ventana.setVisible(false);
 					
