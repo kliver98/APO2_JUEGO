@@ -40,11 +40,21 @@ public interface Poderes {
 	 * Constante que representa la imagen del poder del ozaru.<br>
 	 */
 	public static final String PODER_OZARU = "datos/poderes/poderMonoGigante.png";
+
+	/**
+	 * Constante que representa la imagen del poder del ozaru.<br>
+	 */
+	public static final String PODER_OZARU_FUERTE = "datos/poderes/poderMonoFuerte0.png";
 	
 	/**
 	 * Constante que representa el daño que hace el poder del ozaru.<br>
 	 */
 	public static final int DANIO_PODER_OZARU = 55;
+
+	/**
+	 * Constante que representa el daño que hace el poder del ozaru.<br>
+	 */
+	public static final int DANIO_PODER_OZARU_FUERTE = 100;
 	
 	/**
 	 * Constante que representa el daño que hace el poder del robot.

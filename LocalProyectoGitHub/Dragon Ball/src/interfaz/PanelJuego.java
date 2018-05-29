@@ -52,6 +52,7 @@ public class PanelJuego extends JPanel implements KeyListener {
 		pintarEnemigos(g);
 		pintarPoderEnemigos(g);
 		pintarOzaru(g);
+		pintarPoderOzaru(g);
 		
 		if (!ventana.getJuego().isGokuVivo()) 
 			pintarGameOver(g);
@@ -143,13 +144,29 @@ public class PanelJuego extends JPanel implements KeyListener {
 			Ozaru temp = ventana.getOzaru();
 			ImageIcon imagen = new ImageIcon(temp.getImagen());
 			g.drawImage(imagen.getImage(), temp.getPosX(), temp.getPosY(), imagen.getIconWidth(), imagen.getIconHeight(), null);
-			pintarPoderOzaru(g, temp);
 		}
 	}
 	
-	public void pintarPoderOzaru(Graphics g, Ozaru t) {
-		ImageIcon imagen = new ImageIcon(t.getImagen());
-		g.drawImage(imagen.getImage(), t.getPoder().getPosX(), t.getPosY(), imagen.getIconWidth(), imagen.getIconHeight(), null);
+	public void pintarPoderOzaru(Graphics g) {
+		Ozaru t = ventana.getOzaru();
+		
+		if (t!=null) {
+			if (t.getPoder()!=null) {
+				ImageIcon imagen = new ImageIcon(t.getPoder().getPoder());
+				g.drawImage(imagen.getImage(), t.getPoder().getPosX(), t.getPoder().getPosY(), imagen.getIconWidth(), imagen.getIconHeight(), null);
+			}
+			
+			for (int i = 0; i < t.getPoderes().size(); i++) {
+				Poder temp = t.getPoderes().get(i);
+				
+				ImageIcon image = new ImageIcon(temp.getPoder());
+				g.drawImage(image.getImage(), temp.getPosX(), temp.getPosY(), image.getIconWidth(), image.getIconHeight(), null);
+				
+				int ancho = image.getIconWidth();
+				int alto = image.getIconHeight();
+				ventana.modificarPerimetroPoderes(temp, ancho, alto);
+			}
+		}
 	}
 	/**
 	 * Metdo sobreescrito que captura cuando se presiono una tecla<br>

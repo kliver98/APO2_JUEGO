@@ -55,10 +55,7 @@ public class Juego {
 	 * Atributo que representa un fondo auxiliar del videojuego.<br>
 	 */
 	private Fondo auxiliar;
-	/**
-	 * 
-	 */
-	private ArrayList<Item> items;
+
 	/**
 	 * 
 	 */
@@ -196,22 +193,6 @@ public class Juego {
 				crearEnemigosDemonios();
 			else
 				crearEnemigosRobots();
-		}
-	}
-	
-	/**
-	 * Agrega un item al azar
-	 */
-	public void agregarItems() {
-		int oportunidad = (int) (Math.random() * 500 + 1);
-		
-		if (oportunidad == 23) {
-			oportunidad = (int) (Math.random() * 2 + 1);
-			
-			if (oportunidad == 1) {
-			}
-			else if (oportunidad == 2) {
-			}
 		}
 	}
 
@@ -407,6 +388,43 @@ public class Juego {
 	}
 	
 	/**
+	 * Metodo que se encarga de verificar El daño de los enemigos hacia goku.
+	 * @param evaluado Enemgio el cual Lanzo el poder.
+	 * @param poderE Poder del enemigo
+	 * @param i pocision del poder en el arryalist.
+	 */
+	public void verificarDanioEnemigosOzaru(Ozaru evaluado, Poder poderE, int i) {
+		// PODER
+		int gokuPosX = principal.getPosX();
+		int gokuPosY = principal.getPosY();
+		int gokuAncho = principal.getAncho();
+		int gokuAlto = principal.getAlto();
+		
+		//ENEMIGO
+		int enemigoPoderPosX = poderE.getPosX();
+		int enemigoPoderPosY = poderE.getPosY();
+		int enemigoPoderAncho = poderE.getAncho();
+		int enemigoPoderAlto = poderE.getAlto();
+		
+		if(gokuPosX+gokuAncho >= enemigoPoderPosX && gokuPosX <= enemigoPoderPosX+enemigoPoderAncho) {
+			if(gokuPosY+gokuAlto >= enemigoPoderPosY && gokuPosY <= enemigoPoderPosY+enemigoPoderAlto) {
+				int danioPoder = poderE.getDanio();
+				int vida = principal.getVida() - danioPoder;
+				
+				if (vida<=0) {
+					gokuVivo = false;
+					//Goku muere
+				}
+				else {
+					principal.setVida(vida);
+					evaluado.getPoderes().remove(i);
+				}
+			}
+		}
+		
+	}
+	
+	/**
 	 * Metodo que verifica el danio instantaneo d eun enemigo basico<br>
 	 * @param evaluado con el enemigo basico que se verificara<br>
 	 * @param i con la posicion en el arraylist del enemigo basico evaluado<br>
@@ -497,7 +515,7 @@ public class Juego {
 		FileOutputStream fileO = null;
 		ObjectOutputStream oos = null;
 		try {
-			fileO = new FileOutputStream(file, true);
+			fileO = new FileOutputStream(file);
 			oos = new ObjectOutputStream(fileO);
 			
 			oos.writeObject(primero);
@@ -642,20 +660,7 @@ public class Juego {
 		if(creado==false) {
 			creado = true;
 			ozaru = new Ozaru(Ozaru.MONO_1, Ozaru.POS_X, Ozaru.POS_Y, Ozaru.VIDA_OZARU);
-			crearPoderOzaru();
 		}
-	}
-
-	/**
-	 * Método que crea el poder del primer jefe del juego.<br>
-	 */
-	public void crearPoderOzaru() {
-		int x = Ozaru.ORIGEN_PODER_X;
-		int y = Ozaru.ORIGEN_PODER_Y;
-		int danio = Ozaru.DANIO_PODER_OZARU;
-		String imagen = Ozaru.PODER_OZARU;
-		Poder poderOzaru = new Poder(imagen, x, y, true, danio);
-		ozaru.setPoder(poderOzaru);
 	}
 	
 	/**

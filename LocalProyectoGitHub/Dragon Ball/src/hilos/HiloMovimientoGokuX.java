@@ -29,7 +29,7 @@ public class HiloMovimientoGokuX extends Thread{
 	 * Contructor de la clase HiloMovimientoFondo.<br>
 	 * @param ventana - Clase principal de la interfaz de usuario.<br>
 	 * @param juego - Clase principal del modelo.<br>
-	 * @param valorMovimiento - Valor en que se movera el personaje.<br>
+	 * @param movimiento - Valor en que se movera el personaje.<br>
 	 */
 	public HiloMovimientoGokuX(VentanaPrincipal ventana, Juego juego, int movimiento) {
 		this.ventana = ventana;

@@ -96,7 +96,7 @@ public class Poder {
 	/**
 	 * Método que modifica el estado del valor de si esta activado o no el poder.<br>
 	 * <b>post: </b>Se modifica el valor de verdad del atributo "activado".<br>
-	 * @param nuevo valor de verdad.<br>
+	 * @param activado - nuevo valor de verdad.<br>
 	 */
 	public void setActivado(boolean activado) {
 		this.activado = activado;

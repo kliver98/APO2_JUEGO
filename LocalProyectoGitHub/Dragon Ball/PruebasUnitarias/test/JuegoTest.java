@@ -460,13 +460,13 @@ public class JuegoTest extends TestCase {
 	/**
 	 * Prueba el metodo primerJefe
 	 */
-	@Test
-	public void testCrearPoderOzaru() {
-		setupEscenarioConEnemigoBasicoDemonio();
-		juego.primerJefe();
-		juego.crearPoderOzaru();
-		assertTrue(juego.getOzaru().getPoder()!=null);
-	}
+//	@Test
+//	public void testCrearPoderOzaru() {
+//		setupEscenarioConEnemigoBasicoDemonio();
+//		juego.primerJefe();
+//		juego.crearPoderOzaru();
+//		assertTrue(juego.getOzaru().getPoder()!=null);
+//	}
 	
 	/**
 	 * Prueba el metodo primerJefe
