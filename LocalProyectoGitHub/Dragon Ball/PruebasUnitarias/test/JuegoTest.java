@@ -320,12 +320,116 @@ public class JuegoTest extends TestCase {
 	public void testPorcentajeBarraVidaGoku() {
 		setupEscenario();
 		int x = juego.porcentajeBarraVidaGoku();
-		System.out.println(x);
 		assertTrue(x==650);
 	}
 	
+	/**
+	 * Prueba el metodo verificarDanioEnemigos<br>
+	 */
 	@Test
 	public void testVerificarDanioEnemigos() {
+		setupEscenarioConEnemigoBasicoDemonio();
+		EnemigoBasico evaluar = (EnemigoBasico)juego.getEnemigos().get(0);
+		ArrayList<Poder> poderes = new ArrayList<Poder>();
+		Poder poderE = new Poder("Poder",0,0,true,juego.getPrincipal().getVida()+1);
+		poderes.add(poderE);
+		juego.verificarDanioEnemigos(evaluar, poderE, 0);
+		assertFalse(juego.isGokuVivo());
+	}
+	
+	/**
+	 * Prueba el metodo verificarDanioInstantaneo<br>
+	 */
+	@Test
+	public void testVerificarDanioInstantaneo() {
+		
+	}
+	
+	/**
+	 * Prueba el metodo crearNuevaPartida<br>
+	 */
+	@Test
+	public void testCrearNuevaPartida() {
+		
+	}
+	
+	/**
+	 * Prueba el metodo terminarPartida<br>
+	 */
+	@Test
+	public void testTerminarPartida() {
+		
+	}
+	
+	/**
+	 * Prueba el metodo isGokuVivo
+	 */
+	@Test
+	public void testIsGokuVivo() {
+		
+	}
+	
+	/**
+	 * Prueba el metodo setGokuVivo
+	 */
+	@Test
+	public void testSetGokuVivo() {
+		
+	}
+	
+	/**
+	 * Prueba el metodo serializarJugadores<br>
+	 */
+	@Test
+	public void testSerializarJugadores() {
+		
+	}
+	
+	/**
+	 * Prueba el metodo cargarJugadoresSerializados<br>
+	 */
+	@Test
+	public void testCargarJugadoresSerializados() {
+		
+	}
+	
+	/**
+	 * Prueba el metodo crearArchivoPlano<br>
+	 */
+	@Test
+	public void testCrearArchivoPlano() {
+		
+	}
+	
+	/**
+	 * Prueba el metodo crearArraylistJugadores
+	 */
+	@Test
+	public void testCrearArraylistJugadores() {
+		
+	}
+	
+	/**
+	 * Prueba el metodo crearArraylistJugadores<br>
+	 */
+	@Test
+	public void testCrearArraylistJugadoresCompletos() {
+		
+	}
+	
+	/**
+	 * Prueba el metodo buscarJugador<br>
+	 */
+	@Test
+	public void testBuscarJugador() {
+		
+	}
+	
+	/**
+	 * Prueba el metodo primerJefe<br>
+	 */
+	@Test
+	public void testPrimerJefe() {
 		
 	}
 	

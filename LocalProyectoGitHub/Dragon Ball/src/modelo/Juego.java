@@ -62,6 +62,7 @@ public class Juego {
 	 */
 	public Juego() {
 		crearNuevaPartida();
+		cargarJugadoresSerializados();
 	}
 	
 	public Jugador getActual() {
@@ -494,8 +495,8 @@ public class Juego {
 		}
 		finally {
 			try {
-				fileO.close();
 				oos.close();
+				fileO.close();
 			} 
 			catch (IOException e) {
 			}
@@ -523,8 +524,8 @@ public class Juego {
 		  }
 		  finally {
 			  try {
-				  fileInStr.close();
 				  ois.close();
+				  fileInStr.close();
 			  } 
 			  catch (IOException e) {
 			  }
@@ -543,12 +544,8 @@ public class Juego {
 			fw = new FileWriter(file, true); 
 			bw = new BufferedWriter(fw);
 			
-			ArrayList<Jugador> jugadores = crearArraylistJugadores();
-			
-			for (int i = 0; i < jugadores.size(); i++) {
-				bw.write(jugadores.get(i).getNickName()+",");
-				bw.write(jugadores.get(i).getPuntaje()+"\n");
-			}
+			bw.write(actual.getNickName()+",");
+			bw.write(actual.getPuntaje()+"\n");
 		}
 		catch (FileNotFoundException e) {
 		} 
@@ -556,8 +553,8 @@ public class Juego {
 		}
 		finally {
 			try {
-				fw.close(); 
 				bw.close();
+				fw.close(); 
 			} 
 			catch (IOException e) {
 			}
@@ -578,9 +575,8 @@ public class Juego {
 	 * @return
 	 */
 	private ArrayList<Jugador> crearArraylistJugadores(Jugador root){
-		ArrayList<Jugador> jugadores = null;
+		ArrayList<Jugador> jugadores = new ArrayList<>();
 		if (root!=null) {
-			jugadores = new ArrayList<>();
 			jugadores.add(root);
 			jugadores.addAll(crearArraylistJugadores(root.getSiguiente()));
 		}
@@ -604,7 +600,6 @@ public class Juego {
 	 * @return
 	 */
 	private Jugador buscarJugador(String nick, Jugador root) {
-		
 		if (root!=null) {
 			if (root.getNickName().equals(nick)) 
 				return root;
@@ -613,6 +608,10 @@ public class Juego {
 		}
 		else 
 			return null;
+	}
+	
+	public void primerJefe() {
+		
 	}
 	
 }

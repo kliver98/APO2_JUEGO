@@ -390,7 +390,8 @@ public class VentanaPrincipal extends JFrame {
 	private void close(){
 		if (JOptionPane.showConfirmDialog(rootPane, "¿Desea realmente salir del sistema?",
 				"Salir del sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-//			ventanaPrincipal.serializarUsuario();
+			juego.crearArchivoPlano();
+			juego.serializarJugadores();
 			System.exit(0);
 		}
 	} 
