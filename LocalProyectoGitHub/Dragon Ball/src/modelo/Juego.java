@@ -50,6 +50,11 @@ public class Juego {
 	private Fondo auxiliar;
 	
 	/**
+	 * 
+	 */
+	private boolean gokuVivo;
+	
+	/**
 	 * Constructor de la clase juego.<br>
 	 */
 	public Juego() {
@@ -57,6 +62,7 @@ public class Juego {
 		crearFondo();
 		crearGoku();
 		creaEnemigosRandomBasicos();
+		setGokuVivo(true);
 	}
 	
 	/**
@@ -346,7 +352,7 @@ public class Juego {
 				int vida = principal.getVida() - danioPoder;
 				
 				if (vida<=0) {
-					principal = null;
+					gokuVivo = false;
 					//Goku muere
 				}
 				else {
@@ -382,7 +388,7 @@ public class Juego {
 				int vida = principal.getVida() - danioPoder;
 				
 				if (vida<=0) {
-					principal = null;
+					gokuVivo = false;
 					//Goku muere
 				}
 				else {
@@ -398,6 +404,22 @@ public class Juego {
 	
 	public void terminarJuego() {
 		
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isGokuVivo() {
+		return gokuVivo;
+	}
+
+	/**
+	 * 
+	 * @param gokuVivo
+	 */
+	public void setGokuVivo(boolean gokuVivo) {
+		this.gokuVivo = gokuVivo;
 	}
 	
 }

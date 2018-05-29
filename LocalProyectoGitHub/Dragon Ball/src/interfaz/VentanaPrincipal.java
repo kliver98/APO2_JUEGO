@@ -287,4 +287,12 @@ public class VentanaPrincipal extends JFrame {
 		return PanelJuego.WIDTH;
 	}
 	
+	/**
+	 * 
+	 */
+	public void terminarJuego() {
+		if (juego.isGokuVivo()) {
+		}
+	}
+	
 }
