@@ -37,6 +37,16 @@ public interface Poderes {
 	public static final String PODER_ROBOT_2 = "datos/poderes/poderRobot1.png";
 	
 	/**
+	 * Constante que representa la imagen del poder del ozaru.<br>
+	 */
+	public static final String PODER_OZARU = "datos/poderes/poderMonoGigante.png";
+	
+	/**
+	 * Constante que representa el daño que hace el poder del ozaru.<br>
+	 */
+	public static final int DANIO_PODER_OZARU = 55;
+	
+	/**
 	 * Constante que representa el daño que hace el poder del robot.
 	 */
 	public static final int DANIO_ROBOT = 20;
@@ -55,5 +65,6 @@ public interface Poderes {
 	 * Constante que representa el daño que hace el poder pequeño de goku.
 	 */
 	public static final int DANIO_PODER_GOKU_PEQUENIO = 20;
+	
 	
 }

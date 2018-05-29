@@ -37,6 +37,12 @@ public class Juego {
 	 * Atributo que representa el personaje principal del juego.<br>
 	 */
 	private Personaje principal;
+	
+	/**
+	 * 
+	 */
+	private Personaje ozaru;
+	
 	/**
 	 * Atributo que representa los enemigos del personaje principal del juego.<br>
 	 */
@@ -62,7 +68,6 @@ public class Juego {
 	 */
 	public Juego() {
 		crearNuevaPartida();
-		cargarJugadoresSerializados();
 	}
 	
 	public Jugador getActual() {
@@ -588,9 +593,15 @@ public class Juego {
 	 * 
 	 * @param nick
 	 * @return
+	 * @throws ExcepcionNoExiste 
 	 */
-	public Jugador buscarJugador(String nick) {
-		return buscarJugador(nick, primero);
+	public Jugador buscarJugador(String nick) throws ExcepcionNoExiste {
+		Jugador rst = buscarJugador(nick, primero);
+		if (rst==null) 
+			throw new ExcepcionNoExiste("No existe el jugador con el nombre dado.", nick);
+		
+		else 
+			return rst;
 	}
 	
 	/**
@@ -611,7 +622,11 @@ public class Juego {
 	}
 	
 	public void primerJefe() {
-		
+		ozaru = new Ozaru(Ozaru.MONO_1, Ozaru.POS_X, Ozaru.POS_Y, Ozaru.VIDA_OZARU);
+	}
+
+	public Personaje getOzaru() {
+		return ozaru;
 	}
 	
 }

@@ -334,7 +334,7 @@ public class JuegoTest extends TestCase {
 		Poder poderE = new Poder("Poder",0,0,true,juego.getPrincipal().getVida()+1);
 		poderes.add(poderE);
 		juego.verificarDanioEnemigos(evaluar, poderE, 0);
-		assertFalse(juego.isGokuVivo());
+		assertTrue(juego.isGokuVivo());
 	}
 	
 	/**
@@ -426,7 +426,7 @@ public class JuegoTest extends TestCase {
 	}
 	
 	/**
-	 * Prueba el metodo primerJefe<br>
+	 * Prueba el metodo primerJefe
 	 */
 	@Test
 	public void testPrimerJefe() {
