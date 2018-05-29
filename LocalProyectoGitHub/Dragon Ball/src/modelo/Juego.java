@@ -64,6 +64,14 @@ public class Juego {
 		crearNuevaPartida();
 	}
 	
+	public Jugador getActual() {
+		return actual;
+	}
+
+	public void setActual(Jugador actual) {
+		this.actual = actual;
+	}
+	
 	/**
 	 * Metodo que se encarga de agregar un jugador en la ultima posicion<br>
 	 * @param nick - nombre del jugador<br>
@@ -74,14 +82,6 @@ public class Juego {
 		
 		agregarJugador(nuevo, primero);
 //		enemigos = new ArrayList<Personaje>();
-	}
-	
-	public Jugador getActual() {
-		return actual;
-	}
-
-	public void setActual(Jugador actual) {
-		this.actual = actual;
 	}
 
 	/**
@@ -475,22 +475,144 @@ public class Juego {
 	//Archivos planos y serializables
 	//*********************************
 	
+	/**
+	 * 
+	 */
 	public void serializarJugadores() {
-		File file = new File("./archivos/usuario.bin");
-		FileOutputStream fileO;
+		File file = new File("./archivos/data.bin");
+		FileOutputStream fileO = null;
+		ObjectOutputStream oos = null;
 		try {
-			fileO = new FileOutputStream(file);
-			ObjectOutputStream ois = new ObjectOutputStream(fileO);
+			fileO = new FileOutputStream(file, true);
+			oos = new ObjectOutputStream(fileO);
+			
+			oos.writeObject(primero);
 		} 
 		catch (FileNotFoundException e) {
-			e.printStackTrace();
 		}
 		catch (IOException e) {
-			e.printStackTrace();
+		}
+		finally {
+			try {
+				fileO.close();
+				oos.close();
+			} 
+			catch (IOException e) {
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public void cargarJugadoresSerializados() {
+		File file = new File("./archivos/data.bin");
+		FileInputStream fileInStr = null;
+		ObjectInputStream ois = null;
+		  try {
+			  fileInStr = new FileInputStream(file);
+			  ois = new ObjectInputStream(fileInStr);
+			  
+			  primero = (Jugador) ois.readObject();
+		  } 
+		  catch (FileNotFoundException e) {
+		  }
+		  catch (ClassNotFoundException e) {
+		  }
+		  catch (IOException e) {
+		  }
+		  finally {
+			  try {
+				  fileInStr.close();
+				  ois.close();
+			  } 
+			  catch (IOException e) {
+			  }
+		  }
+	}
+	
+	/**
+	 * 
+	 */
+	public void crearArchivoPlano() {
+		File file = new File ("./archivos/dataTxt.txt");
+		FileWriter fw = null; 
+		BufferedWriter bw = null;
+
+		try {
+			fw = new FileWriter(file, true); 
+			bw = new BufferedWriter(fw);
+			
+			ArrayList<Jugador> jugadores = crearArraylistJugadores();
+			
+			for (int i = 0; i < jugadores.size(); i++) {
+				bw.write(jugadores.get(i).getNickName()+",");
+				bw.write(jugadores.get(i).getPuntaje()+"\n");
+			}
+		}
+		catch (FileNotFoundException e) {
+		} 
+		catch (IOException e) {
+		}
+		finally {
+			try {
+				fw.close(); 
+				bw.close();
+			} 
+			catch (IOException e) {
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public ArrayList<Jugador> crearArraylistJugadores(){
+		return crearArraylistJugadores(primero);
+	}
+	
+	/**
+	 * 
+	 * @param root
+	 * @return
+	 */
+	private ArrayList<Jugador> crearArraylistJugadores(Jugador root){
+		ArrayList<Jugador> jugadores = null;
+		if (root!=null) {
+			jugadores = new ArrayList<>();
+			jugadores.add(root);
+			jugadores.addAll(crearArraylistJugadores(root.getSiguiente()));
 		}
 		
+		return jugadores;
+	}
+	
+	/**
+	 * 
+	 * @param nick
+	 * @return
+	 */
+	public Jugador buscarJugador(String nick) {
+		return buscarJugador(nick, primero);
+	}
+	
+	/**
+	 * 
+	 * @param nick
+	 * @param root
+	 * @return
+	 */
+	private Jugador buscarJugador(String nick, Jugador root) {
 		
-		
+		if (root!=null) {
+			if (root.getNickName().equals(nick)) 
+				return root;
+			else 
+				return buscarJugador(nick, root.getSiguiente());
+		}
+		else 
+			return null;
 	}
 	
 }

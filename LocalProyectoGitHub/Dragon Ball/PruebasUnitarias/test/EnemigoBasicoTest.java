@@ -150,42 +150,42 @@ public class EnemigoBasicoTest extends TestCase {
 	/**
 	 * Prueba del metodo getAncho<br>
 	 */
-	@Test
-	public void testGetAncho() {
-		setupEscenarioDemonio();
-		assertEquals(0,enemigoBasico.getAncho());
-	}
-	
-	/**
-	 * Prueba del metodo setAncho<br>
-	 */
-	@Test
-	public void testSetAncho() {
-		setupEscenarioDemonio();
-		int nuevoAncho = 10000;
-		enemigoBasico.setAncho(nuevoAncho);
-		assertEquals(nuevoAncho,enemigoBasico.getAncho());
-	}
-	
-	/**
-	 * Prueba del metodo getAlto<br>
-	 */
-	@Test
-	public void testGetAlto() {
-		setupEscenarioDemonio();
-		assertTrue(0==enemigoBasico.getAlto());
-	}
-	
-	/**
-	 * Prueba del metodo setAlto<br>
-	 */
-	@Test
-	public void testSetAlto() {
-		setupEscenarioDemonio();
-		int nuevoAlto = 100000;
-		enemigoBasico.setAlto(nuevoAlto);
-		assertEquals(nuevoAlto,enemigoBasico.getAlto());
-	}
+//	@Test
+//	public void testGetAncho() {
+//		setupEscenarioDemonio();
+//		assertEquals(0,enemigoBasico.getAncho());
+//	}
+//	
+//	/**
+//	 * Prueba del metodo setAncho<br>
+//	 */
+//	@Test
+//	public void testSetAncho() {
+//		setupEscenarioDemonio();
+//		int nuevoAncho = 10000;
+//		enemigoBasico.setAncho(nuevoAncho);
+//		assertEquals(nuevoAncho,enemigoBasico.getAncho());
+//	}
+//	
+//	/**
+//	 * Prueba del metodo getAlto<br>
+//	 */
+//	@Test
+//	public void testGetAlto() {
+//		setupEscenarioDemonio();
+//		assertTrue(0==enemigoBasico.getAlto());
+//	}
+//	
+//	/**
+//	 * Prueba del metodo setAlto<br>
+//	 */
+//	@Test
+//	public void testSetAlto() {
+//		setupEscenarioDemonio();
+//		int nuevoAlto = 100000;
+//		enemigoBasico.setAlto(nuevoAlto);
+//		assertEquals(nuevoAlto,enemigoBasico.getAlto());
+//	}
 	
 	/**
 	 * Prueba del metodo getTipoEnemigo<br>
@@ -205,6 +205,26 @@ public class EnemigoBasicoTest extends TestCase {
 		int valor = 3;
 		enemigoBasico.setTipoEnemigo(valor);
 		assertTrue(valor==enemigoBasico.getTipoEnemigo());
+	}
+	
+	/**
+	 * Prueba el metodo getVelocidad<br>
+	 */
+	@Test
+	public void testGetVelocidad() {
+		setupEscenarioRobot();
+		assertEquals(velocidad,enemigoBasico.getVelocidad());
+	}
+	
+	/**
+	 * Prueba el metodo setVelocidad<br>
+	 */
+	@Test
+	public void testSetVelocidad() {
+		setupEscenarioRobot();
+		int valor = EnemigoBasico.MOVER_ABAJO_Y1;
+		enemigoBasico.setVelocidad(valor);
+		assertTrue(EnemigoBasico.MOVER_ABAJO_Y1==enemigoBasico.getVelocidad());
 	}
 	
 	/**

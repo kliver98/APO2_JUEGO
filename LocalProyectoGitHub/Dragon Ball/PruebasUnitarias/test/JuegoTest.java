@@ -39,6 +39,26 @@ public class JuegoTest extends TestCase {
 	}
 	
 	/**
+	 * Prueba del metodo getActual<br>
+	 */
+	@Test
+	public void testGetActual() {
+		setupEscenario();
+		assertNull(juego.getActual());
+	}
+	
+	/**
+	 * Prueba del metodo setActual<br>
+	 */
+	@Test
+	public void testSetActual() {
+		setupEscenario();
+		Jugador actual = new Jugador("Pepito");
+		juego.setActual(actual);
+		assertFalse(juego.getActual()==null);
+	}
+	
+	/**
 	 * Prueba del metodo agregarJugador<br>
 	 */
 	@Test
@@ -144,6 +164,15 @@ public class JuegoTest extends TestCase {
 			juego.creaEnemigosRandomBasicos();
 		}
 		assertTrue(juego.getEnemigos().size()>val);
+	}
+	
+	/**
+	 * Prueba el metodo agregarItems<br>
+	 */
+	@Test
+	public void testAgregarItems() {
+		setupEscenario();
+		assertTrue(true); //No esta implementado bien todavia
 	}
 	
 	/**

@@ -4,6 +4,8 @@ import javax.swing.*;
 import hilos.*;
 import modelo.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 /**
@@ -50,6 +52,7 @@ public class VentanaPrincipal extends JFrame {
 		startVerificarJuego();
 		
 		nuevoJuego();
+		cerrar();
 	}
 
 	/**
@@ -302,13 +305,16 @@ public class VentanaPrincipal extends JFrame {
 		return PanelJuego.WIDTH;
 	}
 	
+	/**
+	 * 
+	 */
 	public void nuevoJuego() {
 		int seleccion = JOptionPane.showOptionDialog( null,"Seleccione una opción",
 				"Menu del Juego",JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.QUESTION_MESSAGE,null,// null para icono por defecto.
 				new String[] { "Nuevo Jugador", "Jugador existente", "Ver puntajes"},"opcion 1");
 	
-		if (seleccion != -JOptionPane.CANCEL_OPTION){
+		if (seleccion != -1){
 			 if (seleccion == 0) {
 				String usuario = JOptionPane.showInputDialog(null, "Ingrese Usuario");
 				if ( usuario!=null && !usuario.isEmpty() )
@@ -322,9 +328,8 @@ public class VentanaPrincipal extends JFrame {
 					 nuevoJuego();
 			}
 		 }
-		 else {
+		 else 
 			System.exit(0);
-		}
 		 
 		 add(panelJuego, BorderLayout.CENTER);
 		 add(panelHabilidades, BorderLayout.SOUTH);
@@ -334,16 +339,59 @@ public class VentanaPrincipal extends JFrame {
 		 
 		 iniciarHilos();
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public Jugador jugadorActual() {
 		return juego.getActual();
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public PanelHabilidades getPanelHabilidades() {
 		return panelHabilidades;
 	}
-
+	
+	/**
+	 * 
+	 * @param panelHabilidades
+	 */
 	public void setPanelHabilidades(PanelHabilidades panelHabilidades) {
 		this.panelHabilidades = panelHabilidades;
 	}
+	
+	//Metodo para controlar el cierre de la ventana
+	
+	/**
+	 * 
+	 */
+	public void cerrar() {
+		try {
+			setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+			addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowClosing(WindowEvent evt) {
+					close();
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * 
+	 */
+	private void close(){
+		if (JOptionPane.showConfirmDialog(rootPane, "¿Desea realmente salir del sistema?",
+				"Salir del sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+//			ventanaPrincipal.serializarUsuario();
+			System.exit(0);
+		}
+	} 
 }
