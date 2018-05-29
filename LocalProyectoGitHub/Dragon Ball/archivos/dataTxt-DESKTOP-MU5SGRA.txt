@@ -1,0 +1,7 @@
+prueba123,3800
+christian,600
+chris,1200
+Prueba,0
+Prueba,0
+Joe,0
+c,600

@@ -42,6 +42,8 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	public VentanaPrincipal() {
 		juego = new Juego();
+		juego.cargarJugadoresSerializados();
+		
 		panelJuego = new PanelJuego(this);
 		panelHabilidades = new PanelHabilidades(this);
 		setLayout(new BorderLayout());
@@ -326,6 +328,15 @@ public class VentanaPrincipal extends JFrame {
 				 String usuario = JOptionPane.showInputDialog(null, "Ingrese Usuario");
 				 if ( usuario==null || usuario.isEmpty() )
 					 nuevoJuego();
+				 else {
+					try {
+						juego.jugadorExistente(usuario);
+					} 
+					catch (ExcepcionNoExiste e) {
+						JOptionPane.showMessageDialog(null, e.getMessage()+"; "+e.getName(), "Error", JOptionPane.ERROR_MESSAGE);
+						nuevoJuego();
+					}
+				 }
 			}
 		 }
 		 else 
@@ -395,4 +406,13 @@ public class VentanaPrincipal extends JFrame {
 			System.exit(0);
 		}
 	} 
+	
+	public void startHiloOzaru() {
+		HiloOzaru hilo = new HiloOzaru(this, juego);
+		hilo.start();
+	}
+	
+	public Ozaru getOzaru() {
+		return (Ozaru) juego.getOzaru();
+	}
 }

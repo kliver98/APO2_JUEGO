@@ -20,7 +20,7 @@ public class Ozaru extends Personaje {
 	/**
 	 * Constante que representa la posición del ozaru en el eje y.<br>
 	 */
-	public static final int POS_Y = 500;
+	public static final int POS_Y = 300;
 	
 	/**
 	 * Constante que representa la vida del ozaru.<br>
@@ -36,19 +36,22 @@ public class Ozaru extends Personaje {
 	 * Constante que representa el origen del poder de Goku en el eje Y.<br>
 	 */
 	
-	public static final int ORIGEN_PODER_Y = 500;
+	public static final int ORIGEN_PODER_Y = 300;
 	
 	/**
 	 * Constante que representa la cantidad en que movera el poder de Goku.<br>
 	 */
 	public static final int AVANCE_PODER = 5;
 	
+	
+	
+	
 	/**
-	 * 
-	 * @param imagen
-	 * @param posX
-	 * @param posY
-	 * @param vida
+	 * Método constructor de la clase ozaru.<br>
+	 * @param imagen - cadena de caracteres que representan la imagen del ozaru.<br>
+	 * @param posX - representa la posición del ozaru en el eje x.<br>
+	 * @param posY - representa la posición del ozaru en el eje y.<br>
+	 * @param vida - representa la vida del ozaru.<br>
 	 */
 	public Ozaru(String imagen, int posX, int posY, int vida) {
 		super(imagen, posX, posY, vida);

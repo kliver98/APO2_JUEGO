@@ -63,6 +63,12 @@ public class Juego {
 	 * 
 	 */
 	private boolean gokuVivo;
+	
+	/**
+	 * Atributo que representa si el personaje jefe ha sido creado.<br>
+	 */
+	private boolean creado;
+	
 	/**
 	 * Constructor de la clase juego.<br>
 	 */
@@ -213,8 +219,8 @@ public class Juego {
 	 * Metodo que devuelve el total de Jugadores de la lista de esta<br>
 	 * @return longitud de la lista<br>
 	 */
-	public int tamanioListaPersonajes() {
-		return tamanioListaPersonajes(primero,0);
+	public int tamanioListaJugadores() {
+		return tamanioListaJugadores(primero,0);
 	}
 	
 	/**
@@ -222,8 +228,8 @@ public class Juego {
 	 * @param actual - el jugador actual<br>
 	 * @return longitud de la lista enlazada<br>
 	 */
-	public int tamanioListaPersonajes(Jugador actual,int i) {
-		return (actual!=null) ? tamanioListaPersonajes(actual.getSiguiente(),i+1):i;
+	public int tamanioListaJugadores(Jugador actual,int i) {
+		return (actual!=null) ? tamanioListaJugadores(actual.getSiguiente(),i+1):i;
 	}
 	
 	public void aumentarPoderGoku() {
@@ -295,8 +301,10 @@ public class Juego {
 					enemigos.remove(i);
 					principal.getPoder().setActivado(false);
 					
-					if (enemigos.size()==0) 
+					if (enemigos.size()==0) {
 						creaEnemigosRandomBasicos();
+						primerJefe();
+					}
 				}
 				
 				else 
@@ -437,7 +445,7 @@ public class Juego {
 	}
 
 	/**
-	 * 
+	 * hbahsb
 	 */
 	public void crearNuevaPartida() {
 		terminarPartida();
@@ -500,8 +508,10 @@ public class Juego {
 		}
 		finally {
 			try {
-				oos.close();
-				fileO.close();
+				if (oos!=null) 
+					oos.close();
+				if (fileO!=null) 
+					fileO.close();
 			} 
 			catch (IOException e) {
 			}
@@ -529,8 +539,10 @@ public class Juego {
 		  }
 		  finally {
 			  try {
-				  ois.close();
-				  fileInStr.close();
+				  if (fileInStr!=null) 
+					  fileInStr.close();
+				  if (ois!=null) 
+					  ois.close();
 			  } 
 			  catch (IOException e) {
 			  }
@@ -558,8 +570,10 @@ public class Juego {
 		}
 		finally {
 			try {
-				bw.close();
-				fw.close(); 
+				if (bw!=null) 
+					bw.close();
+				if (fw!=null) 
+					fw.close(); 
 			} 
 			catch (IOException e) {
 			}
@@ -621,12 +635,55 @@ public class Juego {
 			return null;
 	}
 	
+	/**
+	 * Método que crea el primer jefe del juego.<br>
+	 */
 	public void primerJefe() {
-		ozaru = new Ozaru(Ozaru.MONO_1, Ozaru.POS_X, Ozaru.POS_Y, Ozaru.VIDA_OZARU);
+		if(creado==false) {
+			creado = true;
+			ozaru = new Ozaru(Ozaru.MONO_1, Ozaru.POS_X, Ozaru.POS_Y, Ozaru.VIDA_OZARU);
+			crearPoderOzaru();
+		}
 	}
 
+	/**
+	 * Método que crea el poder del primer jefe del juego.<br>
+	 */
+	public void crearPoderOzaru() {
+		int x = Ozaru.ORIGEN_PODER_X;
+		int y = Ozaru.ORIGEN_PODER_Y;
+		int danio = Ozaru.DANIO_PODER_OZARU;
+		String imagen = Ozaru.PODER_OZARU;
+		Poder poderOzaru = new Poder(imagen, x, y, true, danio);
+		ozaru.setPoder(poderOzaru);
+	}
+	
+	/**
+	 * Método que da el primer jefe del juego.<br>
+	 * @return ozaru - primer jefe enemigo.<br>
+	 */
 	public Personaje getOzaru() {
 		return ozaru;
+	}
+	
+	public boolean isCreado() {
+		return creado;
+	}
+
+	public void setCreado(boolean creado) {
+		this.creado = creado;
+	}
+	
+	/**
+	 * 
+	 * @param nick
+	 * @throws ExcepcionNoExiste
+	 */
+	public void jugadorExistente(String nick) throws ExcepcionNoExiste {
+		Jugador ex = buscarJugador(nick);
+		
+		if (ex!=null) 
+			actual = ex;
 	}
 	
 }

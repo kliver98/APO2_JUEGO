@@ -1,5 +1,6 @@
 package test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import org.junit.Test;
@@ -64,9 +65,9 @@ public class JuegoTest extends TestCase {
 	@Test
 	public void testAgregarJugador() {
 		setupEscenario();
-		int size1 = juego.tamanioListaPersonajes()+1;
+		int size1 = juego.tamanioListaJugadores()+1;
 		juego.agregarJugador("Juan");
-		int size2 = juego.tamanioListaPersonajes();
+		int size2 = juego.tamanioListaJugadores();
 		assertEquals(size1,size2);
 	}
 	
@@ -182,11 +183,11 @@ public class JuegoTest extends TestCase {
 	public void testTamanioListaPersonajes() {
 		setupEscenario();
 		int n = 100;
-		int size1 = juego.tamanioListaPersonajes()+n;
+		int size1 = juego.tamanioListaJugadores()+n;
 		for (int i = 0; i < n; i++) {			
 			juego.agregarJugador("Juan"+i);
 		}
-		int size2 = juego.tamanioListaPersonajes();
+		int size2 = juego.tamanioListaJugadores();
 		assertEquals(size1,size2);
 	}
 	
@@ -342,7 +343,9 @@ public class JuegoTest extends TestCase {
 	 */
 	@Test
 	public void testVerificarDanioInstantaneo() {
-		
+		setupEscenarioConEnemigoBasicoDemonio();
+		juego.verificarDanioInstantaneo((EnemigoBasico)juego.getEnemigos().get(0), 0);
+		assertTrue(true);
 	}
 	
 	/**
@@ -350,7 +353,10 @@ public class JuegoTest extends TestCase {
 	 */
 	@Test
 	public void testCrearNuevaPartida() {
-		
+		setupEscenarioConEnemigoBasicoDemonio();
+		juego.setGokuVivo(false);
+		juego.crearNuevaPartida();
+		assertTrue(juego.isGokuVivo());
 	}
 	
 	/**
@@ -358,23 +364,28 @@ public class JuegoTest extends TestCase {
 	 */
 	@Test
 	public void testTerminarPartida() {
-		
+		setupEscenarioConEnemigoBasicoDemonio();
+		juego.terminarPartida();
+		assertTrue(!juego.isGokuVivo());
 	}
 	
 	/**
-	 * Prueba el metodo isGokuVivo
+	 * Prueba el metodo isGokuVivo<br>
 	 */
 	@Test
 	public void testIsGokuVivo() {
-		
+		setupEscenarioConEnemigoBasicoDemonio();
+		assertEquals(true,juego.isGokuVivo());
 	}
 	
 	/**
-	 * Prueba el metodo setGokuVivo
+	 * Prueba el metodo setGokuVivo<br>
 	 */
 	@Test
 	public void testSetGokuVivo() {
-		
+		setupEscenarioConEnemigoBasicoDemonio();
+		juego.setGokuVivo(false);
+		assertEquals(false,juego.isGokuVivo());
 	}
 	
 	/**
@@ -382,7 +393,10 @@ public class JuegoTest extends TestCase {
 	 */
 	@Test
 	public void testSerializarJugadores() {
-		
+		setupEscenarioConEnemigoBasicoDemonio();
+		File file = new File("./archivos/data.bin");
+		juego.serializarJugadores();
+		assertTrue(file.exists());
 	}
 	
 	/**
@@ -390,7 +404,9 @@ public class JuegoTest extends TestCase {
 	 */
 	@Test
 	public void testCargarJugadoresSerializados() {
-		
+		setupEscenarioConEnemigoBasicoDemonio();
+		juego.cargarJugadoresSerializados();
+		assertTrue(juego.tamanioListaJugadores()>=0);
 	}
 	
 	/**
@@ -398,23 +414,21 @@ public class JuegoTest extends TestCase {
 	 */
 	@Test
 	public void testCrearArchivoPlano() {
-		
-	}
-	
-	/**
-	 * Prueba el metodo crearArraylistJugadores
-	 */
-	@Test
-	public void testCrearArraylistJugadores() {
-		
+		setupEscenarioConEnemigoBasicoDemonio();
+		File file = new File ("./archivos/dataTxt.txt");
+		juego.setActual(new Jugador("Prueba"));
+		juego.crearArchivoPlano();
+		assertTrue(file.exists());
 	}
 	
 	/**
 	 * Prueba el metodo crearArraylistJugadores<br>
 	 */
 	@Test
-	public void testCrearArraylistJugadoresCompletos() {
-		
+	public void testCrearArraylistJugadores() {
+		setupEscenarioConEnemigoBasicoDemonio();
+		juego.crearArraylistJugadores();
+		assertTrue(juego.tamanioListaJugadores()>=0);
 	}
 	
 	/**
@@ -422,7 +436,15 @@ public class JuegoTest extends TestCase {
 	 */
 	@Test
 	public void testBuscarJugador() {
-		
+		setupEscenarioConEnemigoBasicoDemonio();
+		String nombreBuscar = "___NO_EXISTE____";
+		boolean existe = true;
+		try {
+			juego.buscarJugador(nombreBuscar);
+		} catch (ExcepcionNoExiste e) {
+			existe = false;
+		}
+		assertTrue(!existe);
 	}
 	
 	/**
@@ -430,7 +452,38 @@ public class JuegoTest extends TestCase {
 	 */
 	@Test
 	public void testPrimerJefe() {
-		
+		setupEscenarioConEnemigoBasicoDemonio();
+		juego.primerJefe();
+		assertTrue(juego.getOzaru()!=null);
+	}
+	
+	/**
+	 * Prueba el metodo primerJefe
+	 */
+	@Test
+	public void testCrearPoderOzaru() {
+		setupEscenarioConEnemigoBasicoDemonio();
+		juego.primerJefe();
+		juego.crearPoderOzaru();
+		assertTrue(juego.getOzaru().getPoder()!=null);
+	}
+	
+	/**
+	 * Prueba el metodo primerJefe
+	 */
+	@Test
+	public void testGetOzaru() {
+		setupEscenarioConEnemigoBasicoDemonio();
+		assertNull(juego.getOzaru());
+	}
+	
+	/**
+	 * Prueba el metodo primerJefe
+	 */
+	@Test
+	public void testIsCreado() {
+		setupEscenarioConEnemigoBasicoDemonio();
+		assertTrue(!juego.isCreado());
 	}
 	
 }
