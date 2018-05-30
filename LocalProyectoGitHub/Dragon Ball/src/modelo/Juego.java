@@ -26,6 +26,11 @@ public class Juego {
 	public static final int PUNTOS_ENEMIGOS_JEFES = 500;
 
 	/**
+	 * 
+	 */
+	public static final int PRIMER_JEFE = 5000;
+
+	/**
 	 * Relacion con el jugador que esta jugando actualmente.<br>
 	 */
 	private Jugador actual;
@@ -254,7 +259,7 @@ public class Juego {
 	 * 
 	 * @param evaluado
 	 */
-	public void hacerDanioGoku(EnemigoBasico evaluado, int i) {
+	public void hacerDanioGoku(Personaje evaluado, int i) {
 		// PODER
 		int poderPosX = principal.getPoder().getPosX();
 		int poderPosY = principal.getPoder().getPosY();
@@ -272,24 +277,33 @@ public class Juego {
 				String imagen = Goku.PODER_GOKU_2;
 				principal.getPoder().setPoder(imagen);
 				
-				int puntos = actual.getPuntaje()+PUNTOS_ENEMIGOS_BASICOS;
-				actual.setPuntaje(puntos);
 				
 				int danioPoder = principal.getPoder().getDanio();
-				int vida = evaluado.getVida()- danioPoder;
+				int vida = evaluado.getVida()-danioPoder;
 				
-				if (vida<=0) {
-					enemigos.remove(i);
-					principal.getPoder().setActivado(false);
-					
-					if (enemigos.size()==0) {
-						creaEnemigosRandomBasicos();
-						primerJefe();
+				principal.getPoder().setActivado(false);
+				if (evaluado instanceof EnemigoBasico) {
+					if (vida<=0) {
+						int puntos = actual.getPuntaje()+PUNTOS_ENEMIGOS_BASICOS;
+						actual.setPuntaje(puntos);
+						enemigos.remove(i);
+						
+						if (enemigos.size()==0) {
+							creaEnemigosRandomBasicos();
+						}
 					}
+					else 
+						evaluado.setVida(vida);
 				}
-				
-				else 
-					evaluado.setVida(vida);
+				else {
+					if (vida<=0) {
+						int puntos = actual.getPuntaje()+PUNTOS_ENEMIGOS_JEFES;
+						actual.setPuntaje(puntos);
+						ozaru = null;
+					}
+					else 
+						evaluado.setVida(vida);
+				}
 			}
 		}
 	}
@@ -335,6 +349,15 @@ public class Juego {
 	 */
 	public void modificarPerimetroGoku(int ancho, int alto) {
 		principal.setPerimetro(ancho, alto);
+	}
+	
+	/**
+	 * Metodo que modifica el perimetro de goku<br>
+	 * @param ancho con el nuevo valor del ancho de goku<br>
+	 * @param alto con el nuevo valor del alto de goku<br>
+	 */
+	public void modificarPerimetroOzaru(int ancho, int alto) {
+		ozaru.setPerimetro(ancho, alto);
 	}
 	
 	/**
@@ -415,6 +438,10 @@ public class Juego {
 					gokuVivo = false;
 					//Goku muere
 				}
+				if (poderE.getPoder().equals(Ozaru.PODER_OZARU_FUERTE)) {
+					principal.setVida(vida);
+					ozaru.setPoder(null);
+				}
 				else {
 					principal.setVida(vida);
 					evaluado.getPoderes().remove(i);
@@ -452,6 +479,9 @@ public class Juego {
 					//Goku muere
 				}
 				else {
+					int puntos = actual.getPuntaje()+PUNTOS_ENEMIGOS_BASICOS;
+					actual.setPuntaje(puntos);
+					
 					principal.setVida(vida);
 					enemigos.remove(i);
 					if (enemigos.size()==0) 
@@ -461,9 +491,55 @@ public class Juego {
 		}
 		
 	}
+	
+	/**
+	 * Metodo que verifica el danio instantaneo d eun enemigo basico<br>
+	 * @param evaluado con el enemigo basico que se verificara<br>
+	 * @param i con la posicion en el arraylist del enemigo basico evaluado<br>
+	 */
+	public void verificarDanioInstantaneoJefe(Personaje evaluado) {
+		// PODER
+		int gokuPosX = principal.getPosX();
+		int gokuPosY = principal.getPosY();
+		int gokuAncho = principal.getAncho();
+		int gokuAlto = principal.getAlto();
+		
+		//ENEMIGO
+		int enemigoPosX = evaluado.getPosX();
+		int enemigoPosY = evaluado.getPosY();
+		int enemigoAncho = evaluado.getAncho();
+		int enemigoAlto = evaluado.getAlto();
+		
+		if(gokuPosX+gokuAncho >= enemigoPosX && gokuPosX <= enemigoPosX+enemigoAncho) {
+			if(gokuPosY+gokuAlto >= enemigoPosY && gokuPosY <= enemigoPosY+enemigoAlto) {
+				int danioPoder = Ozaru.DANIO_INSTANTANEO;
+				int vida = principal.getVida() - danioPoder;
+				
+				if (vida<=0) {
+					gokuVivo = false;
+					//Goku muere
+				}
+				
+				else if (evaluado instanceof Ozaru) {
+					principal.setVida(vida);
+					
+					int danio = ozaru.getVida()-Goku.DANIO_PODER_GOKU_GRANDE;
+					
+					if (danio<=0) {
+						int puntos = actual.getPuntaje()+PUNTOS_ENEMIGOS_JEFES;
+						actual.setPuntaje(puntos);						
+						ozaru = null;
+					}
+					else 
+						evaluado.setVida(vida);
+				}
+			}
+		}
+		
+	}
 
 	/**
-	 * hbahsb
+	 * 
 	 */
 	public void crearNuevaPartida() {
 		terminarPartida();
@@ -660,6 +736,12 @@ public class Juego {
 		if(creado==false) {
 			creado = true;
 			ozaru = new Ozaru(Ozaru.MONO_1, Ozaru.POS_X, Ozaru.POS_Y, Ozaru.VIDA_OZARU);
+		}
+	}
+	
+	public void verificarCreacionPrimerJefe() {
+		if (actual.getPuntaje()==PRIMER_JEFE) {
+			primerJefe();
 		}
 	}
 	

@@ -2,6 +2,9 @@ package interfaz;
 
 import modelo.*;
 import javax.swing.*;
+
+import org.omg.CORBA.portable.ValueBase;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -140,10 +143,14 @@ public class PanelJuego extends JPanel implements KeyListener {
 	}
 	
 	public void pintarOzaru(Graphics g) {
-		if(ventana.getJuego().isCreado()) {
+		if(ventana.getJuego().isCreado()&&ventana.getOzaru()!=null) {
 			Ozaru temp = ventana.getOzaru();
 			ImageIcon imagen = new ImageIcon(temp.getImagen());
 			g.drawImage(imagen.getImage(), temp.getPosX(), temp.getPosY(), imagen.getIconWidth(), imagen.getIconHeight(), null);
+			
+			int ancho = imagen.getIconWidth();
+			int alto = imagen.getIconHeight();
+			ventana.getJuego().modificarPerimetroOzaru(ancho, alto);
 		}
 	}
 	

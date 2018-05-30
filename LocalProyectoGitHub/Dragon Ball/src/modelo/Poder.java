@@ -46,10 +46,12 @@ public class Poder {
 	
 	/**
 	 * Constructor de la clase Poder.<br>
+	 * 
 	 * @param poder - cadena de caracteres que representa la imagen del poder.<br>
 	 * @param posX - posición en el eje X del juego en el que se crea el poder.<br>
 	 * @param posY - posición en el eje Y del juego en el que se crea el poder.<br>
 	 * @param activado - valor de verdad si el poder esta activado.<br>
+	 * @param danio
 	 */
 	public Poder(String poder, int posX, int posY, boolean activado, int danio) {
 		this.poder = poder;

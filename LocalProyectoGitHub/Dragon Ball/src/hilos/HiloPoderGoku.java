@@ -52,6 +52,10 @@ public class HiloPoderGoku extends Thread {
 			for (int i = 0; i < juego.getEnemigos().size(); i++) 
 				juego.hacerDanioGoku((EnemigoBasico)juego.getEnemigos().get(i), i);
 			
+			if (juego.getOzaru()!=null) 
+				juego.hacerDanioGoku(juego.getOzaru(), 0);
+			
+			
 			try {
 				sleep(15);
 				if(ventana.poderGoku().isActivado() == false || ventana.poderGoku().getPosX() > ventana.darTamanioVentana()) 

@@ -27,21 +27,18 @@ public class HiloVerificarJuego extends Thread{
 			try {
 				sleep(1000);
 				
-//				ventana.getPanelHabilidades().repaint();
-//				ventana.repaint();
 				if (!juego.isGokuVivo()) {
 					
 					JOptionPane.showConfirmDialog(ventana, "Juego Terminado", "Game Over", JOptionPane.DEFAULT_OPTION);
 					ventana.setVisible(false);
 					
-//					System.out.println("asd");
 					juego.crearNuevaPartida();
 					sleep(1000);	
 					ventana.nuevoJuego();
 					sleep(1000);	
 				}
-			} catch (InterruptedException e) {
-//				e.printStackTrace();
+			}
+			catch (InterruptedException e) {
 			}
 		}
 	}

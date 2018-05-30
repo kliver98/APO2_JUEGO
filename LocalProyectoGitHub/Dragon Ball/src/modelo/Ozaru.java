@@ -25,7 +25,12 @@ public class Ozaru extends Personaje {
 	/**
 	 * Constante que representa la vida del ozaru.<br>
 	 */
-	public static final int VIDA_OZARU = 500;
+	public static final int VIDA_OZARU = 3000;
+
+	/**
+	 * Constante que representa la vida del ozaru.<br>
+	 */
+	public static final int DANIO_INSTANTANEO = 20;
 	
 	/**
 	 * Constante que representa el origen del poder de Goku en el eje X.<br>

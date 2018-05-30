@@ -21,23 +21,27 @@ public class HiloOzaru extends Thread {
 				Ozaru ozaru = (Ozaru) juego.getOzaru();
 				ozaru.moverPosY(Ozaru.AVANCE_OZARU);
 				
-			for (int j = 0; j < ozaru.getPoderes().size(); j++) {
-				Poder poder = ozaru.getPoderes().get(j);
-				
-				if (poder!=null) {
-					poder.moverPoderEnemigo(Ozaru.AVANCE_PODER);
+				for (int j = 0; j < ozaru.getPoderes().size(); j++) {
+					Poder poder = ozaru.getPoderes().get(j);
 					
-					if(poder.getPosX()<=0) 
-						ozaru.getPoderes().remove(j);
-					
-					juego.verificarDanioEnemigosOzaru(ozaru, poder, j);
+					if (poder!=null) {
+						poder.moverPoderEnemigo(Ozaru.AVANCE_PODER);
+						
+						if(poder.getPosX()<=0) 
+							ozaru.getPoderes().remove(j);
+						
+						juego.verificarDanioEnemigosOzaru(ozaru, poder, j);
+					}
 				}
+				if (ozaru.getPoder()!=null) {
+					ozaru.getPoder().moverPoderEnemigo(Ozaru.AVANCE_PODER+5);
+					juego.verificarDanioEnemigosOzaru(ozaru, ozaru.getPoder(), 0);
+				}
+			
+				juego.verificarDanioInstantaneoJefe(ozaru);
 			}
-			if (ozaru.getPoder()!=null) {
-				ozaru.getPoder().moverPoderEnemigo(Ozaru.AVANCE_PODER);
-//				juego.verificarDanioEnemigosOzaru(ozaru, ozaru.getPoder(), j);
-			}
-				
+			else {
+				juego.verificarCreacionPrimerJefe();
 			}
 			try {
 				sleep(30);
